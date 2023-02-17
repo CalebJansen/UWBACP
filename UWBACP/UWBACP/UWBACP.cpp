@@ -148,10 +148,31 @@ int main()
     cout << "\n";
 
     //debug code
+    cout << "You have identified the following taken courses:\n";
     for (int i = 0; i < takenCourses.size(); i++)
     {
         cout << takenCourses.at(i).getPrefix() << " " << 
             takenCourses.at(i).getCourseNumber() << "\n";
+    }
+
+    //if user input doesn't match any courses in the database, remove the input
+    for (int i = 0; i < takenCourses.size(); i++)
+    {
+        bool validCourse = false;
+        for (int j = 0; j < courseList.size(); j++)
+        {
+            if (takenCourses.at(i) == courseList.at(j))
+                validCourse = true;
+        }
+        if (!validCourse)
+        {
+            cout << "Course " << takenCourses.at(i).getPrefix() << " " <<
+                takenCourses.at(i).getCourseNumber() <<
+                " was not found in the Course List directory.\n" <<
+                "Please add the course or check for misspelling\n";
+            //removing course from takenCourses
+            takenCourses.erase(takenCourses.begin() + i);
+        }
     }
 }
 
