@@ -129,6 +129,67 @@ vector<Course> Student::getSchedule(int year, int quarter)
 
 bool Student::generateSchedule()
 {
+	//generating unique list of courses student needs to take
+	vector<Course> needToTake(0);
+	if (this->getMajor().getReqs().size() > 0)
+	{
+		needToTake.push_back(this->getMajor().getReqs().at(0));
+
+		//main major requirement
+		for (int i = 0; i < this->getMajor().getReqs().size(); i++)
+		{
+			//eliminating duplicates...
+			//that major requirement's prerequisite classes
+			for (int j = 0; j < this->getMajor().getReqs().at(i).getPreReqs().size(); j++)
+			{
+				//checking if that prerequisite class already exists in the needToTakeVector
+				for (int k = 0; k < needToTake.size(); k++)
+				{
+					if (!(this->getMajor().getReqs().at(i).getPreReqs().at(j) ==
+						needToTake.at(k)))
+						needToTake.push_back(
+							this->getMajor().getReqs().at(i).getPreReqs().at(j));
+				}
+
+			}
+
+			//checking and adding main major course if not duplicate
+			for (int j = 0; j < needToTake.size(); j++)
+			{
+				if (!(this->getMajor().getReqs().at(i) == needToTake.at(j)))
+					needToTake.push_back(this->getMajor().getReqs().at(i));
+			}
+		}
+
+		//subtracting courses student has already taken from needToTake vector
+		for (int i = 0; i < this->getTakenCourses().size(); i++)
+		{
+			for (int j = 0; j < needToTake.size(); j++)
+			{
+				if (this->getTakenCourses().at(i) == needToTake.at(j))
+				{
+					//erasing taken course from needToTake vector
+					needToTake.erase(needToTake.begin() + j);
+				}
+			}
+		}
+
+		//at this point, needToTake should be accurate
+		//test printout debug code:
+		cout << "\nStudent needs to take:\n";
+		for (int i = 0; i < needToTake.size(); i++)
+			cout << needToTake.at(i).getPrefix() << " " <<
+			needToTake.at(i).getCourseNumber() << "\n";
+		//end debug code
+	}
+	else
+	{
+		cout << "\nERROR: NO MAJOR REQUIREMENTS FOUND\n";
+		return false;
+	}
+	
+
+
 	return false;
 }
 

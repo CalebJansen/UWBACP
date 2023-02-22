@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\COURSE_LIST">
       <UniqueIdentifier>{dacea6bd-5ca8-45bf-847a-9695137e9f9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\MAJORS">
+      <UniqueIdentifier>{907834fe-1485-481a-8fa6-af751d15c231}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UWBACP.cpp">
@@ -32,12 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TestClasses.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="CSSE.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="SavedStudent.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -49,6 +46,9 @@
     </Text>
     <Text Include="COURSE_LIST\TEST_CSS301.txt">
       <Filter>Resource Files\COURSE_LIST</Filter>
+    </Text>
+    <Text Include="CSSE.txt">
+      <Filter>Resource Files\MAJORS</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

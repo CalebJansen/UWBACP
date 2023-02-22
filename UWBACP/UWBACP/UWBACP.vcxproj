@@ -139,7 +139,6 @@
     <Text Include="COURSE_LIST\TEST_CSS301.txt" />
     <Text Include="CSSE.txt" />
     <Text Include="SavedStudent.txt" />
-    <Text Include="TestClasses.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Course.h" />

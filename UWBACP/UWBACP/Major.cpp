@@ -8,9 +8,16 @@ Major::Major()
     this->reqs = emptyCourseList;
 }
 
-Major::Major(string name, vector<Course> reqs)
+Major::Major(string inputName)
 {
-    this->name = name;
+    this->name = inputName;
+    vector<Course> emptyCourseList(0);
+    this->reqs = emptyCourseList;
+}
+
+Major::Major(string inputName, vector<Course> reqs)
+{
+    this->name = inputName;
     this->reqs = reqs;
 }
 
@@ -34,7 +41,12 @@ string Major::getName()
     return this->name;
 }
 
-void Major::setName(string name)
+void Major::setName(string inputName)
 {
-    this->name = name;
+    this->name = inputName;
+}
+
+bool Major::operator==(Major rhs)
+{
+    return this->name == rhs.getName();
 }

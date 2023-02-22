@@ -8,6 +8,8 @@
 #include <sstream>
 #include <map>
 #include <filesystem>
+#include "Major.h"
+#include "Student.h"
 
 using namespace std;
 
@@ -25,7 +27,8 @@ int main()
     bool finished = false;
     vector<Course> takenCourses(0);
 
-
+    //creating major list for later
+    vector<Major> majorList(0);
     //populating course list
     vector<Course> courseList(0);
 
@@ -154,6 +157,7 @@ int main()
         cout << takenCourses.at(i).getPrefix() << " " << 
             takenCourses.at(i).getCourseNumber() << "\n";
     }
+    cout << endl;
 
     //if user input doesn't match any courses in the database, remove the input
     for (int i = 0; i < takenCourses.size(); i++)
@@ -174,7 +178,114 @@ int main()
             takenCourses.erase(takenCourses.begin() + i);
         }
     }
+
+
+
+    //reading in major requirements
+
+    //for now I'm just setting the only file to read in as CSSE,
+    //in order to implement multiple majors use the same system as classes
+    //with all majors being stored in a single folder
+    ifstream majorFile;
+    majorFile.open("CSSE.txt");
+    string fileInput = "";
+    Major newMajor;
+
+    //iterate through file
+    if (majorFile.is_open())
+    {
+        int lineNumber = 0;
+        //bool duplicateFlag = false;
+        Major newMajor;
+        while (getline(majorFile, fileInput)) // && !duplicateFlag
+        {
+            lineNumber++;
+            //parse input and create course using parsed data
+            vector<string> delimitedLine;
+            stringstream str(fileInput);
+
+            //accept strings comma delimited, filling delimited line vector
+            while (str.good()) {
+                string substring;
+                getline(str, substring, ',');
+                delimitedLine.push_back(substring);
+            }
+
+            if (lineNumber == 1)
+            {
+                newMajor = Major(delimitedLine.at(0));
+
+                //verification can be implemented when multiple majors are present
+
+                /*for (int i = 0; i < courseList.size(); i++)
+                {
+                    if (courseList.at(i) == compareCourse)
+                    {
+                        duplicateFlag = true;
+                    }
+                }*/
+
+                //if (duplicateFlag)
+                //{
+                //    cout << "WARNING: DUPLICATE MAJOR " << delimitedLine.at(0) <<
+                //        delimitedLine.at(1) <<
+                //        " DETECTED. SECOND ENTRY WILL NOT BE INCLUDED IN THE DATABASE.\n";
+                //}
+                //else //add major to majorList
+                //{
+                // newMajor.setPrefix(delimitedLine.at(0));
+                //newCourse.setCourseNumber(stoi(delimitedLine.at(1)));
+                //}
+                
+            }
+            else //contains prerequisite data - add prereqs one by one
+            {
+                Course newPreReq = Course(delimitedLine.at(0), stoi(delimitedLine.at(1)));
+                newMajor.addReq(newPreReq);
+                //build and add prerequisites list
+            }
+        }
+        majorList.push_back(newMajor);
+        majorFile.close();
+    }
+    else
+    {
+        cout << "\n\nERROR: COULD NOT OPEN MAJOR DATA FILE.\n"; //TODO add file name in error message
+    }
+
+    cout << "Please input your major: CSSE\n\n";
+    //would just be a for loop looking through major file database comparing to
+    //a temp major generated using the input string
+    Major selectedMajor = majorList.at(0);
+
+    int currentYear;
+    int currentQuarter;
+    cout << "Please enter your current year in the following fashion:\n1 - freshman\n" <<
+    "2 - sophomore\n3 - junior\n4+ - senior\n";
+    cin >> currentYear;
+    cout << "\nPlease enter your current quarter in a similar fashion: ";
+    cin >> currentQuarter;
+    cout << endl;
+
+    //creating populated student
+    Student currentStudent(currentYear, currentQuarter, selectedMajor, takenCourses);
+
+    //test code for making sure student class is working.
+    cout << currentStudent.getStartQuarter() << currentStudent.getStartYear() <<
+        currentStudent.getMajor().getName();
+    for (int i = 0; i < currentStudent.getTakenCourses().size(); i++)
+        cout << currentStudent.getTakenCourses().at(i).getPrefix() << " " << 
+        currentStudent.getTakenCourses().at(i).getCourseNumber() << endl;
+    //end test code
+
+
+    //magic...
+    if (currentStudent.generateSchedule())
+        currentStudent.printSchedule();
+    else
+        cout << "Schedule Creation Failed.";
 }
+
 
 
 
