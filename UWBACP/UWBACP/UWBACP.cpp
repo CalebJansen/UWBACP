@@ -173,7 +173,7 @@ int main()
             cout << "Course " << takenCourses.at(i).getPrefix() << " " <<
                 takenCourses.at(i).getCourseNumber() <<
                 " was not found in the Course List directory.\n" <<
-                "Please add the course or check for misspelling\n";
+                "Please add the course or check for misspelling\n\n";
             //removing course from takenCourses
             takenCourses.erase(takenCourses.begin() + i);
         }
@@ -263,7 +263,8 @@ int main()
     cout << "Please enter your current year in the following fashion:\n1 - freshman\n" <<
     "2 - sophomore\n3 - junior\n4+ - senior\n";
     cin >> currentYear;
-    cout << "\nPlease enter your current quarter in a similar fashion: ";
+    cout << "\nPlease enter your current quarter in the following fashion:\n1 - winter\n" <<
+        "2 - spring\n3 - summer\n4 - fall\n";
     cin >> currentQuarter;
     cout << endl;
 
