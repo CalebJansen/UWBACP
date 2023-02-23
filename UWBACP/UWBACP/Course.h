@@ -38,7 +38,7 @@ private:
 	vector<Course> preReqs;
 	bool visible;
 	bool quartersOffered[4];
-
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 	//Categories
 	bool englishComposition;
 	bool writingCurriculum;

@@ -116,9 +116,10 @@ int main()
         
     }
 
-    //test code
+    //test / debug code
     for (int i = 0; i < courseList.size(); i++)
     {
+        cout << "DEBUG - COURSE LIST: ";
         string q0 = "", q1 = "", q2 = "", q3 = "";
         if (courseList.at(i).getQuartersOffered()[0])
             q0 = "Winter";
@@ -129,7 +130,7 @@ int main()
         if (courseList.at(i).getQuartersOffered()[3])
             q3 = "Fall";
         cout << courseList.at(i).getPrefix() << courseList.at(i).getCourseNumber() <<
-            " is offered in " << q0 << q1 << q2 << q3;
+            " is offered in " << q0 << q1 << q2 << q3 << endl;
     }
  
     while (!finished)
@@ -141,7 +142,7 @@ int main()
             finished = true;
         else
         {
-            cout << "\nInput Course Number: ";
+            cout << "Input Course Number: ";
             cin >> numberInput;
             takenCourses.push_back(Course(prefixInput, numberInput));
 
@@ -272,6 +273,7 @@ int main()
     Student currentStudent(currentYear, currentQuarter, selectedMajor, takenCourses);
 
     //test code for making sure student class is working.
+    cout << "DEBUG - STUDENT CLASS: ";
     cout << currentStudent.getStartQuarter() << currentStudent.getStartYear() <<
         currentStudent.getMajor().getName();
     for (int i = 0; i < currentStudent.getTakenCourses().size(); i++)
