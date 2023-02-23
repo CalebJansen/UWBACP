@@ -1,0 +1,2 @@
+STMATH,341
+Fall,Winter,Spring
